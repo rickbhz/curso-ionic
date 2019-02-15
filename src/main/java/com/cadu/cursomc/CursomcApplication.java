@@ -68,19 +68,21 @@ public class CursomcApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		Categoria cat1 = new Categoria(null, "Informática");
-		Categoria cat2 = new Categoria(null, "Escritório");
+		Categoria cat1 = new Categoria(null, "Informatica");
+		Categoria cat2 = new Categoria(null, "Escritorio");
+		Categoria cat3 = new Categoria(null, "Eletronico");
+		Categoria cat4 = new Categoria(null, "Carro");		
 		
 		Produto p1 = new Produto(null, "Computador", 2001.00);
 		Produto p2 = new Produto(null, "Impressora", 850.00);
 		Produto p3 = new Produto(null, "Mouse", 70.00);
 		
 		Estado est1 = new Estado(null,"Minas Gerais");
-		Estado est2 = new Estado(null,"São Paulo");
+		Estado est2 = new Estado(null,"Sao Paulo");
 		
 		Cidade cid1 = new Cidade(null, "Belo Horizonte", est1);
 		Cidade cid2 = new Cidade(null,"Campinas", est2);
-		Cidade cid3 = new Cidade(null,"Uberlândia", est1);
+		Cidade cid3 = new Cidade(null,"Uberlandia", est1);
 		
 		cat1.getProdutos().addAll(Arrays.asList(p1,p2,p3));
 		cat2.getProdutos().add(p2);
@@ -92,7 +94,7 @@ public class CursomcApplication implements CommandLineRunner {
 		est1.getCidades().addAll(Arrays.asList(cid1,cid3));
 		est2.getCidades().addAll(Arrays.asList(cid2));
 		
-		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
+		categoriaRepository.saveAll(Arrays.asList(cat1,cat2,cat3,cat4));
 		produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
 		estadoRepository.saveAll(Arrays.asList(est1,est2));
 		cidadeRepository.saveAll(Arrays.asList(cid1,cid2,cid3));
