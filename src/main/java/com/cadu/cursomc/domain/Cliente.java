@@ -27,10 +27,7 @@ public class Cliente implements Serializable {
 	private Integer id;
 	
 	private String nome;
-	
-	@Email
-	private String email;
-	
+	private String email;	
 	private String cpfOuCnpj;
 	private Integer tipoCliente;
 	

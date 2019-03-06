@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.cadu.cursomc.domain.Cliente;
 import com.cadu.cursomc.dto.ClienteDTO;
+import com.cadu.cursomc.dto.ClienteNewDTO;
 import com.cadu.cursomc.services.ClienteService;
 
 @RestController
@@ -38,9 +40,9 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	
+	@Transactional
 	@PostMapping
-	public ResponseEntity<Void> insert (@Valid @RequestBody ClienteDTO objDTO){
+	public ResponseEntity<Void> insert (@Valid @RequestBody ClienteNewDTO objDTO){
 		Cliente obj = service.fromDTO(objDTO);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();

@@ -10,8 +10,12 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
+import com.cadu.cursomc.domain.Cidade;
 import com.cadu.cursomc.domain.Cliente;
+import com.cadu.cursomc.domain.Endereco;
+import com.cadu.cursomc.domain.enums.TipoCliente;
 import com.cadu.cursomc.dto.ClienteDTO;
+import com.cadu.cursomc.dto.ClienteNewDTO;
 import com.cadu.cursomc.repositories.ClienteRepository;
 import com.cadu.cursomc.services.exception.DataIntegrityException;
 import com.cadu.cursomc.services.exception.ObjectNotFoundException;
@@ -73,4 +77,21 @@ public class ClienteService {
 	public Cliente fromDTO(ClienteDTO objDTO) {
 		return new Cliente(objDTO.getId(),objDTO.getNome(),objDTO.getEmail(),null,null);
 	}	
+	
+	public Cliente fromDTO(ClienteNewDTO objDTO) {
+		Cliente cli = new Cliente(null, objDTO.getNome(),objDTO.getEmail(),objDTO.getCpfOuCnpj(),TipoCliente.toEnum(objDTO.getTipoCliente()));
+		Cidade cidade = new Cidade(objDTO.getCidadeId(),null,null);	
+		Endereco end = new Endereco(null, objDTO.getLogradouro(), objDTO.getNumero(), objDTO.getBairro(), objDTO.getComplemento(), objDTO.getCep(),cidade, cli);
+		cli.getEnderecos().add(end);
+		cli.getTelefones().add(objDTO.getTelefone1());
+		if (objDTO.getTelefone2()!=null) {
+			cli.getTelefones().add(objDTO.getTelefone2());
+		}
+		if (objDTO.getTelefone3()!=null) {
+			cli.getTelefones().add(objDTO.getTelefone3());
+		}	
+		
+		return cli;
+		
+	}		
 }
