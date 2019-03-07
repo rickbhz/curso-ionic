@@ -17,6 +17,7 @@ import com.cadu.cursomc.domain.enums.TipoCliente;
 import com.cadu.cursomc.dto.ClienteDTO;
 import com.cadu.cursomc.dto.ClienteNewDTO;
 import com.cadu.cursomc.repositories.ClienteRepository;
+import com.cadu.cursomc.repositories.EnderecoRepository;
 import com.cadu.cursomc.services.exception.DataIntegrityException;
 import com.cadu.cursomc.services.exception.ObjectNotFoundException;
 
@@ -25,6 +26,9 @@ public class ClienteService {
 
 	@Autowired
 	private ClienteRepository repo;
+	
+	@Autowired
+	private EnderecoRepository enderecoRepository;
 	
 	public Cliente find(Integer id) {
 
@@ -35,7 +39,9 @@ public class ClienteService {
 
 	public Cliente insert(Cliente obj) {
 		obj.setId(null);
-		return repo.save(obj);
+		obj = repo.save(obj);
+		enderecoRepository.saveAll(obj.getEnderecos());
+		return obj;
 	}
 	
 	public Cliente update(Cliente obj) {
